@@ -9,7 +9,10 @@ import java.util.Locale
 class Part1 {
 
     fun toAllCaps(input: String?): String {
-        return input?.toUpperCase(Locale.getDefault()) ?: ""
+        if (input == null) {
+            return ""
+        }
+        return input.toUpperCase(Locale.getDefault())
     }
 
     fun isEven(input: Int): Boolean {
