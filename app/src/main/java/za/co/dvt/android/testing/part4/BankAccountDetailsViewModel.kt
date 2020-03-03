@@ -14,12 +14,12 @@ class BankAccountDetailsViewModel(private val accountManager: AccountManager) {
         return accountManager.getFormattedAccountNumber()
     }
 
-    fun getAccountHolderName(): String {
-        return accountManager.getAccountHolderName()
+    fun onRetryClicked() {
+        accountManager.refresh()
     }
 
-    fun getFormattedAccountBalance(): String {
-        return accountManager.getFormattedAccountBalance()
+    fun onTransactionClicked(transactionId: String) {
+        accountManager.fetchTransaction(transactionId)
     }
 }
 

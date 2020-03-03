@@ -25,6 +25,6 @@ class ProductDetailsViewModel(private val product: Product) {
     }
 
     fun getMoreExpensiveProduct(other: Product): Product {
-        return if (product.price > other.price) product else other
+        return if (product.price >= other.price) product else other
     }
 }

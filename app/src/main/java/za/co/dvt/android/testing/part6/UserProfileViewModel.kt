@@ -1,6 +1,7 @@
 package za.co.dvt.android.testing.part6
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.databinding.ObservableField
 
@@ -20,5 +21,9 @@ class UserProfileViewModel {
 
     fun getEditScreenIntent(): Intent {
         return Intent("EDIT_USER_PROFILE")
+    }
+
+    fun isAtLeastAndroidOreo(): Boolean {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
     }
 }
