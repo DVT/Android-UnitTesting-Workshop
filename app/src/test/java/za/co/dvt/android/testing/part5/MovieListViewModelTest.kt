@@ -7,23 +7,24 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations.initMocks
+import za.co.dvt.android.testing.part5.code.MovieProvider
 
-class Part5Test {
+class MovieListViewModelTest {
     @Mock
-    private lateinit var nameProvider: NameProvider
-    private lateinit var part5: Part5
+    private lateinit var movieProvider: MovieProvider
+    private lateinit var movieListViewModel: MovieListViewModel
 
     @Before
     fun setUp() {
         initMocks(this)
-        part5 = Part5(nameProvider)
+        movieListViewModel = MovieListViewModel(movieProvider)
     }
 
     @Test
-    fun testFilterNames_NullQuery_ReturnsFullList() {
-        `when`(nameProvider.provideNames()).thenReturn(provideMockNames())
+    fun testFilterMovies_NullQuery_ReturnsFullList() {
+        `when`(movieProvider.provideMovies()).thenReturn(provideMockMovies())
 
-        val actual = part5.filterNames(null)
+        val actual = movieListViewModel.filterMovies(null)
 
         assertEquals(3, actual.size)
         assertTrue(actual.contains("First"))
@@ -32,10 +33,10 @@ class Part5Test {
     }
 
     @Test
-    fun testFilterNames_EmptyQuery_ReturnsFullList() {
-        `when`(nameProvider.provideNames()).thenReturn(provideMockNames())
+    fun testFilterMovies_EmptyQuery_ReturnsFullList() {
+        `when`(movieProvider.provideMovies()).thenReturn(provideMockMovies())
 
-        val actual = part5.filterNames("")
+        val actual = movieListViewModel.filterMovies("")
 
         assertEquals(3, actual.size)
         assertTrue(actual.contains("First"))
@@ -44,17 +45,17 @@ class Part5Test {
     }
 
     @Test
-    fun testFilterNames_ValidQuery_ReturnsMatchingNames() {
-        `when`(nameProvider.provideNames()).thenReturn(provideMockNames())
+    fun testFilterMovies_ValidQuery_ReturnsMatchingMovies() {
+        `when`(movieProvider.provideMovies()).thenReturn(provideMockMovies())
 
-        val actual = part5.filterNames("ir")
+        val actual = movieListViewModel.filterMovies("ir")
 
         assertEquals(2, actual.size)
         assertTrue(actual.contains("First"))
         assertTrue(actual.contains("Third"))
     }
 
-    private fun provideMockNames(): Collection<String> {
+    private fun provideMockMovies(): Collection<String> {
         return listOf("First", "Second", "Third")
     }
 }

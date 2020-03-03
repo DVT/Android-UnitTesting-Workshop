@@ -8,7 +8,7 @@ import androidx.databinding.ObservableField
  * Part 6 - Android SDK Testing
  * Learn how to test classes that interact with classes within the Android SDK!
  */
-class Part6ViewModel {
+class UserProfileViewModel {
     val userName = ObservableField<String>()
     val emailAddress = ObservableField<String>()
 
@@ -18,8 +18,7 @@ class Part6ViewModel {
         emailAddress.set(args.getString("email_address"))
     }
 
-    fun getSomeIntent(): Intent {
-        return Intent("SOME_ACTION")
+    fun getEditScreenIntent(): Intent {
+        return Intent("EDIT_USER_PROFILE")
     }
-
 }
