@@ -21,6 +21,12 @@ class BankAccountDetailsViewModel(private val accountManager: AccountManager) {
     fun onTransactionClicked(transactionId: String) {
         accountManager.fetchTransaction(transactionId)
     }
+
+    fun onPayClicked(toAccount: Account, otp: Int) {
+        if (otp == 4321) {
+            accountManager.makePayment(toAccount, otp)
+        }
+    }
 }
 
 /** Constructor-style factory method. */

@@ -17,4 +17,8 @@ class AccountManagerImpl(private val account: Account)
     override fun fetchTransaction(id: String) {
         Log.i("AccountManagerImpl", "Fetching transaction $id")
     }
+
+    override fun makePayment(to: Account, otp: Int) {
+        Log.i("AccountManagerImpl", "Paying $to")
+    }
 }
