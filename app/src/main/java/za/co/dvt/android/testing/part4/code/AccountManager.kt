@@ -4,4 +4,5 @@ interface AccountManager {
     fun getFormattedAccountNumber(): String
     fun refresh()
     fun fetchTransaction(id: String)
+    fun makePayment(to: Account, otp: Int)
 }

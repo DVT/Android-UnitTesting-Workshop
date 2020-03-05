@@ -1,30 +1,30 @@
 package za.co.dvt.android.testing.part5
 
+import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations.initMocks
 import za.co.dvt.android.testing.part5.code.MovieProvider
 
 class MovieListViewModelTest {
     @Mock
     private lateinit var movieProvider: MovieProvider
-    private lateinit var movieListViewModel: MovieListViewModel
+    private lateinit var viewModel: MovieListViewModel
 
     @Before
     fun setUp() {
         initMocks(this)
-        movieListViewModel = MovieListViewModel(movieProvider)
+        viewModel = MovieListViewModel(movieProvider)
     }
 
     @Test
     fun testFilterMovies_NullQuery_ReturnsFullList() {
-        `when`(movieProvider.provideMovies()).thenReturn(provideMockMovies())
+        whenever(movieProvider.provideMovies()).thenReturn(provideMockMovies())
 
-        val actual = movieListViewModel.filterMovies(null)
+        val actual = viewModel.filterMovies(null)
 
         assertEquals(3, actual.size)
         assertTrue(actual.contains("First"))
@@ -34,9 +34,9 @@ class MovieListViewModelTest {
 
     @Test
     fun testFilterMovies_EmptyQuery_ReturnsFullList() {
-        `when`(movieProvider.provideMovies()).thenReturn(provideMockMovies())
+        whenever(movieProvider.provideMovies()).thenReturn(provideMockMovies())
 
-        val actual = movieListViewModel.filterMovies("")
+        val actual = viewModel.filterMovies("")
 
         assertEquals(3, actual.size)
         assertTrue(actual.contains("First"))
@@ -46,13 +46,23 @@ class MovieListViewModelTest {
 
     @Test
     fun testFilterMovies_ValidQuery_ReturnsMatchingMovies() {
-        `when`(movieProvider.provideMovies()).thenReturn(provideMockMovies())
+        whenever(movieProvider.provideMovies()).thenReturn(provideMockMovies())
 
-        val actual = movieListViewModel.filterMovies("ir")
+        val actual = viewModel.filterMovies("ir")
 
         assertEquals(2, actual.size)
         assertTrue(actual.contains("First"))
         assertTrue(actual.contains("Third"))
+    }
+
+    @Test
+    fun testFilterMovies_QueryCaseIsDifferent_PerformsCaseInsensitiveFilter() {
+        whenever(movieProvider.provideMovies()).thenReturn(provideMockMovies())
+
+        val actual = viewModel.filterMovies("fir")
+
+        assertEquals(1, actual.size)
+        assertTrue(actual.contains("First"))
     }
 
     private fun provideMockMovies(): Collection<String> {

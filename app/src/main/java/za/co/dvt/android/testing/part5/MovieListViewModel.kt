@@ -15,7 +15,7 @@ class MovieListViewModel(private val movieProvider: MovieProvider) {
             // return a copy of the list
             return movies.toList()
         }
-        return movies.filter { it.contains(query) }
+        return movies.filter { it.contains(query, ignoreCase = true) }
     }
 }
 
