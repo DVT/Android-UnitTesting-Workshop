@@ -43,9 +43,8 @@ class RxViewModelTest {
         doNothing().whenever(view).showSuccessfulMessage()
 
         val actual = systemUnderTest.fetchPlants().test()
-
-        val result = actual.events.first().map { it }.first() as ArrayList<Plant>
-        assert(result.isEmpty())
+        val result = actual.values()
+        assert(result.first().isEmpty())
         verify(repo).getPlants()
         verify(view, times(1)).showSuccessfulMessage()
     }
