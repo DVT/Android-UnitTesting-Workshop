@@ -5,6 +5,7 @@ import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Flowable
+import junit.framework.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -44,7 +45,7 @@ class RxViewModelTest {
 
         val actual = systemUnderTest.fetchPlants().test()
         val result = actual.values()
-        assert(result.first().isEmpty())
+        assertTrue(result.first().isEmpty())
         verify(repo).getPlants()
         verify(view, times(1)).showSuccessfulMessage()
     }
